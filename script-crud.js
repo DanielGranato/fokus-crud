@@ -47,7 +47,11 @@ formAdicionarTarefa.addEventListener('submit', (evento) => {
                 descricao: textarea.value
         }
         tarefas.push(tarefa)
+        const elementoTarefa = criarElementoTarefa(tarefa)
+        ulTarefas.append(elementoTarefa)
         localStorage.setItem('tarefas', JSON.stringify(tarefas))
+        textarea.value = " "
+        formAdicionarTarefa.classList.add("hidden")
 })
 
 tarefas.forEach(tarefa => {
