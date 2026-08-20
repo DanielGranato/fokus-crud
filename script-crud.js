@@ -122,6 +122,26 @@ document.addEventListener('FocoFinalizado', () => {
     }
 })
 
+document.addEventListener('DescansoCurtoFinalizado', () => {
+    if (tarefaSelecionada && liTarefaSelecionada) {
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled')
+        tarefaSelecionada.completa = true
+        atualizarTarefas()
+    }
+})
+
+document.addEventListener('DescansoLongoFinalizado', () => {
+    if (tarefaSelecionada && liTarefaSelecionada) {
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled')
+        tarefaSelecionada.completa = true
+        atualizarTarefas()
+    }
+})
+
 btnRemoverConcluidas.addEventListener('click', () => {
     const listaTarefasConcluidas = ".app__section-task-list-item-complete"
     document.querySelectorAll(listaTarefasConcluidas).forEach(elemento => {
