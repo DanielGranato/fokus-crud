@@ -6,6 +6,8 @@ const ulTarefas = document.querySelector('.app__section-task-list')
 const btnCancelar = document.querySelector(".app__form-footer__button--cancel")
 const paragrafoDescricaoTarefa = document.querySelector('.app__section-active-task-description')
 const btnRemoverConcluidas = document.getElementById("btn-remover-concluidas")
+const btnRemoverTodas = document.getElementById("btn-remover-todas")
+
 
 let tarefas = JSON.parse(localStorage.getItem('tarefas')) || []
 let tarefaSelecionada = null
@@ -120,11 +122,41 @@ document.addEventListener('FocoFinalizado', () => {
     }
 })
 
+document.addEventListener('DescansoCurtoFinalizado', () => {
+    if (tarefaSelecionada && liTarefaSelecionada) {
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled')
+        tarefaSelecionada.completa = true
+        atualizarTarefas()
+    }
+})
+
+document.addEventListener('DescansoLongoFinalizado', () => {
+    if (tarefaSelecionada && liTarefaSelecionada) {
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active')
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete')
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled')
+        tarefaSelecionada.completa = true
+        atualizarTarefas()
+    }
+})
+
 btnRemoverConcluidas.addEventListener('click', () => {
     const listaTarefasConcluidas = ".app__section-task-list-item-complete"
     document.querySelectorAll(listaTarefasConcluidas).forEach(elemento => {
         elemento.remove()
     })
-    tarefas = tarefas.filter(item =>!item.completa)
+    tarefas = tarefas.filter(item => !item.completa)
     atualizarTarefas()
 })
+
+btnRemoverTodas.addEventListener('click', () => {
+    const listaTarefasTodas = ".app__section-task-list-item"
+    document.querySelectorAll(listaTarefasTodas).forEach(elemento => {
+        elemento.remove()
+    })
+    tarefas = []
+    atualizarTarefas()
+})
+
